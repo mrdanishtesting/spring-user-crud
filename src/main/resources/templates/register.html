@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+div {
+  width: 400px; /* Set the width of the div to your desired size */
+  margin: 0 auto; /* Center the div horizontally by setting margin to auto */
+}
+
+/* Style the form elements */
+h1 {
+  text-align: center; /* Center the h1 heading within the div */
+}
+
+form {
+  padding: 20px; /* Add some padding to the form for spacing */
+}
+
+label {
+  display: block; /* Display each label on a new line */
+  margin-bottom: 5px; /* Add some spacing between labels and inputs */
+}
+
+input {
+  width: 100%; /* Make the input fields take up the full width of their container */
+  padding: 5px; /* Add some padding inside the inputs */
+  margin-bottom: 10px; /* Add some spacing between inputs */
+}
+
+button {
+  width: 100%; /* Make the button take up the full width of its container */
+  padding: 10px; /* Add some padding inside the button */
+  background-color: #4CAF50; /* Set the background color of the button */
+  color: white; /* Set the text color of the button */
+  border: none; /* Remove the button border */
+  cursor: pointer; /* Change the cursor to a pointer on hover */
+}
+
+button:hover {
+  background-color: #45a049;
+}
+</style>
+
+<meta charset="ISO-8859-1">
+<title>User Registration</title>
+</head>
+
+<body>
+<div>
+    <h1>User Registration</h1>
+    <form action="#" th:action="@{/register}" method="post" th:object="${lead}">
+ 
+        <label>E-mail:</label>
+        <input type="text" th:field="*{email}" /><br/>
+ 
+        <label>Password:</label>
+        <input type="password" th:field="*{password}" /><br/>
+        
+        <label>ConfirmPassword:</label>
+        <input type="text" th:field="*{confirmPassword}" /><br/>
+ 
+        <label>Date (yyyy-mm-dd):</label>
+        <input type="text" th:field="*{dateOfBirth}" /><br/>
+ 
+ 
+        <label>country</label>
+        <input type="text" th:field="*{country}" /><br/>
+
+ 
+        <button type="submit">Register</button>    
+    </form>
+</div>
+</body>
+</html>

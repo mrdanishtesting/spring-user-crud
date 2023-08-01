@@ -2,9 +2,10 @@ package com.crud.crudproject.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.List;
 import com.crud.crudproject.entities.Lead;
 import com.crud.crudproject.repositories.LeadRepository;
+
 
 @Service
 public class LeadServiceImpl implements LeadService {
@@ -14,7 +15,7 @@ public class LeadServiceImpl implements LeadService {
 
 	@Override
 	public void saveOneLead(Lead lead) {
-		leadRepo.save(lead);
+		Lead save = leadRepo.save(lead);
 		
 	}
 
@@ -22,4 +23,10 @@ public class LeadServiceImpl implements LeadService {
 	public boolean checkPassword(Lead lead) {
 	return (lead.getPassword().equals(lead.getConfirmPassword()))?true:false ;
 }
+
+	@Override
+	public List<Lead> listAllLeads() {
+        List<Lead> leads = leadRepo.findAll();
+        return leads;
+	}
 }
