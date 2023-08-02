@@ -1,0 +1,30 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Style the h1 element */
+h1 {
+    font-size: 32px;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Style the link */
+a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Hover effect for the link */
+a:hover {
+    background-color: #0056b3;
+}

@@ -1,28 +1,12 @@
 
-<html xmlns:th="https://thymeleaf.org">    
-<head>
-
-<title>users data</title>
 
 
-</head>
-
+<div th:insert="~{common/header :: header}"></div>
 <body>
-<div align="center"><h1 th:text="${appName}"></h1>
+	<div align="center">
+		<h1 class="mb-3" th:text="*{appName}"></h1>
 
-<a href="register">Click here to register</a>
-
-</div>
-<!-- <div>id:<strong th:text="${user.id}"> </strong></div><br> -->
-
-<!-- <div>name:<strong th:text="${user.name}"> </strong></div><br> -->
-
-<!-- <div>email:<strong th:text="${user.email}"> </strong></div></div> -->
-
-
-
-
+		<a th:href="@{new/leads}">Click here to register</a>
+	</div>
 </body>
-
-
 </html>

@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:insert="~{common/header :: header}"></div>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-6 col-sm-6 card">
+            <h1 class="text-center">Update Leads</h1>
+            <div class="card-body">
+                <form th:action="@{/update/leads/{id}(id=${lead.id})}" th:object = "${lead}" method="POST">
+                    <!-- Use a hidden input field to simulate the PUT method -->
+                   
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" name="email" th:field="*{email}" class="form-control" placeholder="Enter email" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="text" name="password" th:field="*{password}" class="form-control" placeholder="Enter password" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="text" name="confirmPassword" th:field="*{confirmPassword}" class="form-control" placeholder="Confirm password" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="text" name="dateOfBirth" th:field="*{dateOfBirth}" class="form-control" placeholder="Enter date of birth" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Country</label>
+                        <input type="text" name="country" th:field="*{country}" class="form-control" placeholder="Enter country" />
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

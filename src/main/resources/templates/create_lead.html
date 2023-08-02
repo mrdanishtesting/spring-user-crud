@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="//www.thymeleaf.org">
+
+<div th:insert="~{common/header :: header}"></div>
+<body>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-6 col-md-6 col-sm-6 card">
+				<h1 class="text-center">Create new lead</h1>
+				<div class="card-body">
+					<form th:action="@{/save/leads}" th:object="${lead}" method="POST">
+						<div class="form-group">
+							<label>Email</label> <input type="text" name="email" id="email"
+								th:classappened="${#fields.hasErrors('email')?'is-invalid':' '}"
+								th:field="*{email}" class="form-control"
+								placeholder="Enter email" />
+							<p th:each="e : ${#fields.errors('email')}" th:text="${e}"></p>
+
+							<!--                           <div th:each="e : ${#fields.errors('email')}" th:text="${e}"  id="email" class="invalid-feedback">  -->
+
+
+
+						</div>
+
+						<div class="form-group">
+							<label>Password</label> <input type="password" name="password"
+								th:field="*{password}" class="form-control"
+								placeholder="Enter password" />
+							<p th:each="e : ${#fields.errors('password')}" th:text="${e}"></p>
+						</div>
+
+						<div class="form-group">
+							<label>Confirm Password</label> <input type="password"
+								name="confirmPassword" th:field="*{confirmPassword}"
+								class="form-control" placeholder="Confirm password" />
+						</div>
+
+						<div class="form-group">
+							<label>Date of Birth(YYYY-MM-DD)</label> <input type="text"
+								name="dateOfBirth" th:field="*{dateOfBirth}"
+								class="form-control" placeholder="Enter date of birth" />
+						</div>
+
+						<div class="form-group">
+							<label>Country</label> <input type="text" name="country"
+								th:field="*{country}" class="form-control"
+								placeholder="Enter country" />
+						</div>
+
+						<div class="box-footer">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
