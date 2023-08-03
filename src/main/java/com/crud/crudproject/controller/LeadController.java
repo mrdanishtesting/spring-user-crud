@@ -81,9 +81,22 @@ public class LeadController {
 		return "redirect:/listleads";
 	}
 
-	@GetMapping("/leads/delete/{id}")
+	// http://localhost:8181/show/delete/{id}
+	@GetMapping("/show/delete/{id}")
+	public String deletePage(@PathVariable Long id ,Model model) {
+		model.addAttribute("lead",leadService.getLeadById(id));
+		return "delete_lead";
+	}
+	
+	
+	
+	
+	@GetMapping("/delete/leads/{id}")
 	public String deleteLead(@PathVariable Long id) {
 		leadService.deleteById(id);
 		return "redirect:/listleads";
 	}
+	
+	
+	
 }

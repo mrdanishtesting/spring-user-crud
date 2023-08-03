@@ -1,5 +1,6 @@
 
 body {
+	
     /*display: flex;
     justify-content: center;
     align-items: center;
@@ -28,4 +29,14 @@ a {
 /* Hover effect for the link */
 a:hover {
     background-color: #0056b3;
+}
+
+
+.form-box{
+	background-image:url("/image/login-bg.jpg");
+    
+	backdrop-filter : blur(30px);
+	border-radius:10px;
+	padding:20px;
+	
 }
