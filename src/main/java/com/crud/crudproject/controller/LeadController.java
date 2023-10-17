@@ -68,18 +68,17 @@ public class LeadController {
 	}
 
 	// http://localhost:8181/update/leads/{id}
-	@PostMapping("/update/leads/{id}")
-	public String updateLead(@PathVariable Long id, @ModelAttribute("l") Lead lead, Model model) {
-		Lead leadByID = leadService.getLeadById(id);
-
-		leadByID.setEmail(lead.getEmail());
-		leadByID.setPassword(lead.getPassword());
-		leadByID.setConfirmPassword(lead.getConfirmPassword());
-		leadByID.setDateOfBirth(lead.getDateOfBirth());
-		leadByID.setCountry(lead.getCountry());
-		leadService.updateLead(leadByID);
-		return "redirect:/listleads";
-	}
+	/*
+	 * @PostMapping("/update/leads/{id}") public String updateLead(@PathVariable
+	 * Long id, @ModelAttribute("l") Lead lead, Model model) { Lead leadByID =
+	 * leadService.getLeadById(id);
+	 * 
+	 * leadByID.setEmail(lead.getEmail()); leadByID.setPassword(lead.getPassword());
+	 * leadByID.setConfirmPassword(lead.getConfirmPassword());
+	 * leadByID.setDateOfBirth(lead.getDateOfBirth());
+	 * leadByID.setCountry(lead.getCountry()); leadService.updateLead(leadByID);
+	 * return "redirect:/listleads"; }
+	 */
 
 	// http://localhost:8181/show/delete/{id}
 	@GetMapping("/show/delete/{id}")

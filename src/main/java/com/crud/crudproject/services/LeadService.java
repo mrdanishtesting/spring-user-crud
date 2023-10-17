@@ -2,13 +2,16 @@ package com.crud.crudproject.services;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
+import com.crud.crudproject.dto.RestResponse;
 import com.crud.crudproject.entities.Lead;
 
 
 
 public interface LeadService {
 
-	Lead saveOneLead(Lead lead);
+	ResponseEntity<RestResponse> saveOneLead(Lead lead);
 
 	List<Lead> listAllLeads();
 	
