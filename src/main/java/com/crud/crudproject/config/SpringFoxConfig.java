@@ -36,7 +36,7 @@ public class SpringFoxConfig extends WebMvcConfigurerAdapter {
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfo("SPRING-BOOT RESTAPI",
+		return new ApiInfo("SPRING-BOOT REST-API",
 				"<h3>Danish</h3> <p>We have created an api just need to test an our springboot application ,and in this we can operate functionality of our application like add the user,update the users, we can read the users information and as per our requirements we cqn delete the users",
 				"1.0", "Terms of service", new Contact("Arishi", "https://www.arishi.agency", "info@arishi.agency"), "",
 				"", Collections.emptyList());

@@ -1,5 +1,6 @@
 package com.crud.crudproject;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
@@ -22,7 +23,10 @@ public class CrudProjectApplication {
 		return messageSource;
 	}
 	
-	
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
 	
 	
 

@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.crud.crudproject.entities.Lead;
+import com.crud.crudproject.model.Lead;
 import com.crud.crudproject.services.LeadService;
+
+import io.swagger.annotations.Api;
 
 @Controller
 public class LeadController {
@@ -40,7 +42,7 @@ public class LeadController {
 
 			return "create_lead";
 		}
-		leadService.saveOneLead(lead);
+		//leadService.saveOneLead(lead);
 		return "redirect:/listleads";
 	}
 
@@ -48,7 +50,7 @@ public class LeadController {
 	// http://localhost:8181/api/listleads
 	@GetMapping("/listleads")
 	public String listLeads(Model model) {
-		model.addAttribute("listleads", leadService.listAllLeads());
+		model.addAttribute("listleads", leadService.listLeads());
 		return "list_leads";
 
 	}

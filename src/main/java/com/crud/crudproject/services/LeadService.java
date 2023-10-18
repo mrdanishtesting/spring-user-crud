@@ -1,24 +1,19 @@
 package com.crud.crudproject.services;
 
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
-
+import com.crud.crudproject.dto.LeadDto;
 import com.crud.crudproject.dto.RestResponse;
-import com.crud.crudproject.entities.Lead;
-
-
 
 public interface LeadService {
 
-	ResponseEntity<RestResponse> saveOneLead(Lead lead);
+	ResponseEntity<RestResponse> saveOneLead(LeadDto leadDto);
 
-	List<Lead> listAllLeads();
-	
-	Lead getLeadById(Long id);
-	
-	Lead updateLead(Lead lead);
-	
+	ResponseEntity<RestResponse> listLeads();
+
+	ResponseEntity<RestResponse> getLeadById(Long id);
+
+	ResponseEntity<RestResponse> updateLead(LeadDto leadDto);
+
 	void deleteById(Long id);
-	
+
 }
