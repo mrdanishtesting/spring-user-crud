@@ -5,9 +5,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 =======
 >>>>>>> 3dbdd575f46192be287b31a54040bce9212b8dd6
+=======
+>>>>>>> refs/remotes/origin/main
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +24,7 @@ import com.crud.crudproject.repositories.LeadRepository;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService {
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 	@Autowired
@@ -40,6 +44,8 @@ public class CustomUserDetailService implements UserDetailsService {
 
 }
 =======
+=======
+>>>>>>> refs/remotes/origin/main
     private LeadRepository leadRepository;
 
     
@@ -59,4 +65,7 @@ public class CustomUserDetailService implements UserDetailsService {
 }
 
 
+<<<<<<< HEAD
 >>>>>>> 3dbdd575f46192be287b31a54040bce9212b8dd6
+=======
+>>>>>>> refs/remotes/origin/main
