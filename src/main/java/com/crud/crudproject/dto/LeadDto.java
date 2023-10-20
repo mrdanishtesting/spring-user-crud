@@ -5,10 +5,10 @@ import java.util.Date;
 public class LeadDto {
 
 	private int id;
+	private String username;
 	private String email;
 	private String password;
 	private String confirmPassword;
-	private Date dateOfBirth;
 	private String country;
 
 	public String getEmail() {
@@ -35,14 +35,6 @@ public class LeadDto {
 		this.confirmPassword = confirmPassword;
 	}
 
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
 	public String getCountry() {
 		return country;
 	}
@@ -57,6 +49,14 @@ public class LeadDto {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

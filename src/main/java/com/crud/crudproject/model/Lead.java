@@ -2,27 +2,22 @@ package com.crud.crudproject.model;
 
 
 
-import java.sql.Date;
-
+import java.util.Set;
+import javax.persistence.JoinColumn;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 @Entity
 @Table(name = "leads")
 public class Lead {
@@ -31,8 +26,11 @@ public class Lead {
 	
 	private Long id;
 	@NotBlank(message = "email cannot be empty!!")
-	@Column(name = "email", unique = true, length = 125)
 	
+	
+	
+	private String username;
+	@Column(name = "email", unique = true, length = 125)
 	private String email;
 	@NotBlank(message = "password cannot be empty!!")
 	@Size(min = 3, message = "min length of character is 6")
@@ -40,8 +38,23 @@ public class Lead {
 	
 	private String confirmPassword;
 
-	private Date dateOfBirth;
+	
 	private String country;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "lead_roles",
+            joinColumns = @JoinColumn(name = "lead_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles;
+
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 
 	public Long getId() {
 		return id;
@@ -75,13 +88,7 @@ public class Lead {
 		this.confirmPassword = confirmPassword;
 	}
 
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
+	
 
 	public String getCountry() {
 		return country;
@@ -89,6 +96,14 @@ public class Lead {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 //	@Override

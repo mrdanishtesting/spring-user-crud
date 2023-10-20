@@ -1,4 +1,4 @@
-package com.crud.crudproject.config;
+package com.crud.crudproject;
 
 import java.util.Arrays;
 import java.util.Collections;
