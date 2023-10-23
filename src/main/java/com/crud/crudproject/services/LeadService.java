@@ -8,7 +8,7 @@ public interface LeadService {
 
 	ResponseEntity<RestResponse> saveOneLead(LeadDto leadDto);
 
-	ResponseEntity<RestResponse> listLeads();
+	ResponseEntity<RestResponse> listLeads(int pageNum,int pageSize);
 
 	ResponseEntity<RestResponse> getLeadById(Long id);
 

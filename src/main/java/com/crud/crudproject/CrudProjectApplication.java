@@ -1,18 +1,23 @@
 package com.crud.crudproject;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
-@SpringBootApplication
-public class CrudProjectApplication {
+import com.crud.crudproject.experiments.Box;
 
+@SpringBootApplication
+public class CrudProjectApplication implements CommandLineRunner {
+
+	
+	
 	public static void main(String[] args) {
+		
 		SpringApplication.run(CrudProjectApplication.class, args);
-		System.out.println("hello world");
 	}
 
 	@Bean
@@ -26,6 +31,15 @@ public class CrudProjectApplication {
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		Box box=new Box<String>("hello welcome to my world");
+		Box box1=new Box<Integer>(84357363);
+		box.performSomeTask();
+		box1.performSomeTask();
+		
 	}
 	
 	

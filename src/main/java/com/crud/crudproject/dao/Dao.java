@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import com.crud.crudproject.model.Lead;
 import com.crud.crudproject.repositories.LeadRepository;
@@ -17,9 +20,11 @@ public class Dao {
 	@Autowired
 	private LeadRepository leadRepository;
 
-	public List<Lead> listAllLeads() {
-		List<Lead> lead = leadRepository.findAll();
-		return lead;
+	public List<Lead> listAllLeads(int pageNum,int pageSize) {
+Pageable pageable=PageRequest.of(pageNum, pageSize);
+          Page<Lead> lead = leadRepository.findAll(pageable);
+          List<Lead> list = lead.getContent();
+		return list;
 
 	}
 

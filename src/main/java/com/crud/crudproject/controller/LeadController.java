@@ -48,12 +48,12 @@ public class LeadController {
 
 	// http://localhost:8181/listleads
 	// http://localhost:8181/api/listleads
-	@GetMapping("/listleads")
-	public String listLeads(Model model) {
-		model.addAttribute("listleads", leadService.listLeads());
-		return "list_leads";
-
-	}
+//	@GetMapping("/listleads")
+//	public String listLeads(Model model) {
+//		model.addAttribute("listleads", leadService.listLeads());
+//		return "list_leads";
+//
+//	}
 
 	// http://localhost:8181/new/leads
 	@GetMapping("/new/leads")

@@ -17,6 +17,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.crud.crudproject.dto.JsonViews;
+import com.fasterxml.jackson.annotation.JsonView;
+
 
 @Entity
 @Table(name = "leads")
@@ -27,9 +30,11 @@ public class Lead {
 	private Long id;
 	@NotBlank(message = "email cannot be empty!!")
 	
-	
-	
+	@JsonView(JsonViews.Lead.Views.class)
+	private String name;
+	@JsonView(JsonViews.Lead.Views.class)
 	private String username;
+	@JsonView(JsonViews.Lead.Views.class)
 	@Column(name = "email", unique = true, length = 125)
 	private String email;
 	@NotBlank(message = "password cannot be empty!!")
@@ -38,13 +43,14 @@ public class Lead {
 	
 	private String confirmPassword;
 
-	
+	@JsonView(JsonViews.Lead.Views.class)
 	private String country;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "lead_roles",
             joinColumns = @JoinColumn(name = "lead_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    @JsonView(JsonViews.Lead.Views.class)
     private Set<Role> roles;
 
 
@@ -104,6 +110,14 @@ public class Lead {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 //	@Override
