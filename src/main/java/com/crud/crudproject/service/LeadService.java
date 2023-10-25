@@ -1,4 +1,4 @@
-package com.crud.crudproject.services;
+package com.crud.crudproject.service;
 
 import org.springframework.http.ResponseEntity;
 import com.crud.crudproject.dto.LeadDto;
@@ -10,10 +10,10 @@ public interface LeadService {
 
 	ResponseEntity<RestResponse> listLeads(int pageNum,int pageSize);
 
-	ResponseEntity<RestResponse> getLeadById(Long id);
+	ResponseEntity<RestResponse> getLeadById(long id);
 
 	ResponseEntity<RestResponse> updateLead(LeadDto leadDto,long id);
 
-	void deleteById(Long id);
+	void deleteById(long id);
 
 }

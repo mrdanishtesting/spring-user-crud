@@ -1,4 +1,4 @@
-package com.crud.crudproject.repositories;
+package com.crud.crudproject.repository;
 
 import java.util.Optional;
 

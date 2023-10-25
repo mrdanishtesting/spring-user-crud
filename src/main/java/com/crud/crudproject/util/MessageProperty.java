@@ -1,7 +1,5 @@
 package com.crud.crudproject.util;
 
-import io.swagger.annotations.License;
-
 public class MessageProperty {
 	
 	public static final String ERROR_USER_CREATE_FIELD_MISSING = "error.user.create.fieldmissing";

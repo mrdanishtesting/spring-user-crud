@@ -14,7 +14,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Table(name = "roles")
 public class Role {
 
-	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private long id;

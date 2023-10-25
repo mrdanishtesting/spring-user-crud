@@ -1,4 +1,4 @@
-package com.crud.crudproject.experiments;
+package com.crud.crudproject.experiment;
 
 import java.awt.Container;
 

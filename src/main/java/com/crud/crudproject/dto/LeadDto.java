@@ -1,20 +1,24 @@
 package com.crud.crudproject.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 public class LeadDto {
 
-	private int id;
 	
+	private long id;
+	@JsonView(value = { JsonViews.Lead.class ,JsonViews.Lead.Update.class})
 	private String name;
-
+	@JsonView(value = { JsonViews.Lead.class,JsonViews.Lead.Update.class })
 	private String username;
-	
+	@JsonView(value = { JsonViews.Lead.class ,JsonViews.Lead.Update.class})
 	private String email;
+	@JsonView(value = { JsonViews.Lead.class,JsonViews.Lead.Update.class })
 	private String password;
+	@JsonView(value = { JsonViews.Lead.class,JsonViews.Lead.Update.class })
 	private String confirmPassword;
+	@JsonView(value = { JsonViews.Lead.class})
 	private String country;
+	@JsonView(value = { JsonViews.Lead.class})
 	private String roles;
 
 	public String getEmail() {
@@ -49,13 +53,7 @@ public class LeadDto {
 		this.country = country;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 
 	public String getUsername() {
 		return username;
@@ -73,6 +71,14 @@ public class LeadDto {
 		this.name = name;
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getRoles() {
 		return roles;
 	}
@@ -80,5 +86,11 @@ public class LeadDto {
 	public void setRoles(String roles) {
 		this.roles = roles;
 	}
+
+
+	
+
+
+
 
 }

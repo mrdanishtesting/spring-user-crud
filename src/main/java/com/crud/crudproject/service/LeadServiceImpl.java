@@ -1,4 +1,4 @@
-package com.crud.crudproject.services;
+package com.crud.crudproject.service;
 
 import static com.crud.crudproject.util.MessageProperty.INFO_GLOBAL_SUCCESS_MESSAGE;
 import static com.crud.crudproject.util.MessageProperty.INFO_LEAD_UPDATED_SUCCESS;
@@ -17,7 +17,7 @@ import com.crud.crudproject.dto.JsonViews;
 import com.crud.crudproject.dto.LeadDto;
 import com.crud.crudproject.dto.RestResponse;
 import com.crud.crudproject.model.Lead;
-import com.crud.crudproject.repositories.LeadRepository;
+import com.crud.crudproject.repository.LeadRepository;
 import com.crud.crudproject.util.Helper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -67,7 +67,7 @@ public class LeadServiceImpl implements LeadService {
 	}
 
 	@Override
-	public ResponseEntity<RestResponse> getLeadById(Long id) {
+	public ResponseEntity<RestResponse> getLeadById(long id) {
 		RestResponse response = new RestResponse();
 		Lead viewOneLead = dao.viewOneLead(id);
 		LeadDto dto = modelMapper.map(viewOneLead, LeadDto.class);
@@ -99,7 +99,7 @@ public class LeadServiceImpl implements LeadService {
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(long id) {
 		dao.deleteLead(id);
 	}
 	

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.crud.crudproject.model.Lead;
-import com.crud.crudproject.services.LeadService;
+import com.crud.crudproject.service.LeadService;
 
 import io.swagger.annotations.Api;
 
@@ -23,13 +23,13 @@ public class LeadController {
 	@Autowired
 	private LeadService leadService;
 
-	@Value("${spring.application.name}")
-	String appName;
+//	@Value("${spring.application.name}")
+//	String appName;
 
 	// http://localhost:4321/login
 	@GetMapping("/login")
 	public String showView(Model model) {
-		model.addAttribute("appName", appName);
+//		model.addAttribute("appName", appName);
 		return "login";
 
 	}
@@ -42,7 +42,7 @@ public class LeadController {
 
 			return "create_lead";
 		}
-		//leadService.saveOneLead(lead);
+		// leadService.saveOneLead(lead);
 		return "redirect:/listleads";
 	}
 
@@ -84,20 +84,15 @@ public class LeadController {
 
 	// http://localhost:8181/show/delete/{id}
 	@GetMapping("/show/delete/{id}")
-	public String deletePage(@PathVariable Long id ,Model model) {
-		model.addAttribute("lead",leadService.getLeadById(id));
+	public String deletePage(@PathVariable Long id, Model model) {
+		model.addAttribute("lead", leadService.getLeadById(id));
 		return "delete_lead";
 	}
-	
-	
-	
-	
+
 	@GetMapping("/delete/leads/{id}")
 	public String deleteLead(@PathVariable Long id) {
 		leadService.deleteById(id);
 		return "redirect:/listleads";
 	}
-	
-	
-	
+
 }

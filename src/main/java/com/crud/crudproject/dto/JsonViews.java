@@ -7,6 +7,8 @@ public interface JsonViews {
 		public static interface Views{
 			
 		}
-		
+public static interface Update{
+			
+		}
 	}
 }

@@ -12,29 +12,17 @@ import lombok.extern.slf4j.Slf4j;
 public class Helper {
 	@Autowired
 	private MessageSource messageSource;
-	
+
 	public boolean isAnyFieldEmptyInUser(LeadDto leadDto) {
-		if (!StringUtils.hasText(leadDto.getEmail())
-				|| !StringUtils.hasText(leadDto.getConfirmPassword()) || !StringUtils.hasText(leadDto.getPassword())
-				|| !StringUtils.hasText(leadDto.getCountry()))
+		if (!StringUtils.hasText(leadDto.getEmail()) || !StringUtils.hasText(leadDto.getConfirmPassword())
+				|| !StringUtils.hasText(leadDto.getPassword()) || !StringUtils.hasText(leadDto.getCountry()))
 			return true;
 		return false;
-	
-			
 
-		
 	}
 
 	public String message(String messageType) {
 		return messageSource.getMessage(messageType, null, null);
 	}
-	
-	
 
-		
-	
-		
-		
-		
-	
 }

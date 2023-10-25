@@ -8,8 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+
+import com.crud.crudproject.dto.JsonViews;
 import com.crud.crudproject.model.Lead;
-import com.crud.crudproject.repositories.LeadRepository;
+import com.crud.crudproject.repository.LeadRepository;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Component
 public class Dao {
@@ -28,12 +31,12 @@ Pageable pageable=PageRequest.of(pageNum, pageSize);
 
 	}
 
-	public Lead createUser(Lead lead) {
+	public Lead createUser(@JsonView(JsonViews.Lead.Views.class) Lead lead) {
 		Lead leadEntity = leadRepository.save(lead);
 		return leadEntity;
 	}
 
-	public Lead viewOneLead(Long id) {
+	public Lead viewOneLead(long id) {
 		Optional<Lead> leadOptional = leadRepository.findById(id);
 		if (leadOptional.isPresent()) {
 			return leadOptional.get();
@@ -42,12 +45,12 @@ Pageable pageable=PageRequest.of(pageNum, pageSize);
 
 	}
 
-	public Lead updateLead(Lead lead) {
+	public Lead updateLead( Lead lead) {
 		return leadRepository.save(lead);
 
 	}
 
-	public void deleteLead(Long id) {
+	public void deleteLead(long id) {
 		leadRepository.deleteById(id);
 		
 	}

@@ -1,4 +1,4 @@
-package com.crud.crudproject.config;
+package com.crud.crudproject.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,8 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/**").permitAll()
        .antMatchers(HttpMethod.GET, "api/leads/find/lead/**").permitAll()
         .antMatchers(HttpMethod.GET, "api/**").permitAll()
-        .antMatchers(HttpMethod.GET,"/api/auth/**").permitAll()
-        .antMatchers("/api/**").authenticated()
+        .antMatchers("/api/auth/**").permitAll()
+        
         
         
 

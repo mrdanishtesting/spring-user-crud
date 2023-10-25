@@ -1,9 +1,7 @@
 package com.crud.crudproject.model;
 
-
-
 import java.util.Set;
-import javax.persistence.JoinColumn;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -20,39 +19,33 @@ import javax.validation.constraints.Size;
 import com.crud.crudproject.dto.JsonViews;
 import com.fasterxml.jackson.annotation.JsonView;
 
-
 @Entity
 @Table(name = "leads")
 public class Lead {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
-	private Long id;
+
+	private long id;
 	@NotBlank(message = "email cannot be empty!!")
+
 	
-	@JsonView(JsonViews.Lead.Views.class)
 	private String name;
-	@JsonView(JsonViews.Lead.Views.class)
 	private String username;
-	@JsonView(JsonViews.Lead.Views.class)
 	@Column(name = "email", unique = true, length = 125)
 	private String email;
 	@NotBlank(message = "password cannot be empty!!")
 	@Size(min = 3, message = "min length of character is 6")
 	private String password;
-	
+
 	private String confirmPassword;
 
 	@JsonView(JsonViews.Lead.Views.class)
 	private String country;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "lead_roles",
-            joinColumns = @JoinColumn(name = "lead_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    @JsonView(JsonViews.Lead.Views.class)
-    private Set<Role> roles;
-
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "lead_roles", joinColumns = @JoinColumn(name = "lead_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	@JsonView(JsonViews.Lead.Views.class)
+	private Set<Role> roles;
 
 	public Set<Role> getRoles() {
 		return roles;
@@ -62,11 +55,11 @@ public class Lead {
 		this.roles = roles;
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -93,8 +86,6 @@ public class Lead {
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
-
-	
 
 	public String getCountry() {
 		return country;

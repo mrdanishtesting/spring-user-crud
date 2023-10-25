@@ -1,4 +1,4 @@
-package com.crud.crudproject.config;
+package com.crud.crudproject.security;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.crud.crudproject.model.Lead;
 import com.crud.crudproject.model.Role;
-import com.crud.crudproject.repositories.LeadRepository;
+import com.crud.crudproject.repository.LeadRepository;
 @Service
 public class CustomUserDetailService implements UserDetailsService {
 
