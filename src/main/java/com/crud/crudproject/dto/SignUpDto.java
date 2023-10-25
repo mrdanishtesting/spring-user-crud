@@ -9,6 +9,7 @@ public class SignUpDto {
     private String email;
     private String ConfirmPassword;
     private String password;
+    private String rolename;
     public SignUpDto() {
     }
     public String getName() {
@@ -47,5 +48,11 @@ public class SignUpDto {
 	public void setConfirmPassword(String confirmPassword) {
 		ConfirmPassword = confirmPassword;
 		}
+	public String getRolename() {
+		return rolename;
+	}
+	public void setRolename(String rolename) {
+		this.rolename = rolename;
+	}
 
 }

@@ -12,7 +12,7 @@ public interface LeadService {
 
 	ResponseEntity<RestResponse> getLeadById(Long id);
 
-	ResponseEntity<RestResponse> updateLead(LeadDto leadDto);
+	ResponseEntity<RestResponse> updateLead(LeadDto leadDto,long id);
 
 	void deleteById(Long id);
 

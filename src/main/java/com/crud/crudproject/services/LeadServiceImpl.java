@@ -79,9 +79,16 @@ public class LeadServiceImpl implements LeadService {
 	}
 
 	@Override
-	public ResponseEntity<RestResponse> updateLead(LeadDto leadDto) {
+	public ResponseEntity<RestResponse> updateLead(LeadDto leadDto,long id) {
 		RestResponse response = new RestResponse();
-		Lead lead = modelMapper.map(leadDto, Lead.class);
+		 Lead lead = dao.viewOneLead(id);
+	//	Lead newLead = modelMapper.map(leadDto, Lead.class);
+		 lead.setName(leadDto.getName());
+		 lead.setUsername(leadDto.getUsername());
+		 lead.setEmail(leadDto.getEmail());
+		 lead.setPassword(lead.getPassword());
+		 lead.setConfirmPassword(leadDto.getConfirmPassword());
+		// lead.setRoles(leadDto.getRoles());
 		Lead updateLead = dao.updateLead(lead);
 		LeadDto dto = modelMapper.map(updateLead, LeadDto.class);
 		response.setStatus(true);
@@ -93,10 +100,10 @@ public class LeadServiceImpl implements LeadService {
 
 	@Override
 	public void deleteById(Long id) {
-		leadRepository.deleteById(id);
-
+		dao.deleteLead(id);
 	}
 	
+	@SuppressWarnings("deprecation")
 	private JsonNode convertToJsonNode(List<Lead> listAllLeads) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);

@@ -46,4 +46,9 @@ Pageable pageable=PageRequest.of(pageNum, pageSize);
 		return leadRepository.save(lead);
 
 	}
+
+	public void deleteLead(Long id) {
+		leadRepository.deleteById(id);
+		
+	}
 }

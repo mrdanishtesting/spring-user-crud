@@ -70,7 +70,7 @@ public class AuthController {
         lead.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
        
          
-        Role roles = roleRepository.findByName("ROLE_USER").get();
+        Role roles = roleRepository.findByName(signUpDto.getRolename()).get();
         lead.setRoles(Collections.singleton(roles));
         leadRepository.save(lead);
 
