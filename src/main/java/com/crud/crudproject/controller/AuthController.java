@@ -1,5 +1,4 @@
 package com.crud.crudproject.controller;
-
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,62 +14,74 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.crud.crudproject.dto.JWTAuthResponse;
+import com.crud.crudproject.dto.LeadDto;
 import com.crud.crudproject.dto.LoginDto;
 import com.crud.crudproject.dto.SignUpDto;
 import com.crud.crudproject.model.Lead;
 import com.crud.crudproject.model.Role;
 import com.crud.crudproject.repository.LeadRepository;
 import com.crud.crudproject.repository.RoleRepository;
+import com.crud.crudproject.security.JwtTokenProvider;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-	@Autowired
-	private LeadRepository leadRepository;
+    @Autowired
+    private LeadRepository userRepository;
 
-	@Autowired
-	private RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@PostMapping("/signin")
-	public ResponseEntity<String> authenticateUser(@RequestBody LoginDto loginDto) {
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginDto.getUsernameOrEmail(), loginDto.getPassword()));
+    @Autowired
+    private JwtTokenProvider tokenProvider;
 
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return new ResponseEntity<>("User signed-in successfully!.", HttpStatus.OK);
-	}
+    @PostMapping("/signin")
+    public ResponseEntity<JWTAuthResponse> authenticateUser(@RequestBody LoginDto loginDto){
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                loginDto.getUsernameOrEmail(), loginDto.getPassword()));
 
-	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto) {
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		// add check for username exists in a DB
-		if (leadRepository.existsByUsername(signUpDto.getUsername())) {
-			return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
-		}
+        // get token form tokenProvider
+        String token = tokenProvider.generateToken(authentication);
 
-		// add check for email exists in DB
-		if (leadRepository.existsByEmail(signUpDto.getEmail())) {
-			return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
-		}
-		// create user object
-		Lead lead = new Lead();
-	
-		lead.setName(signUpDto.getName());
-		lead.setUsername(signUpDto.getUsername());
-		lead.setEmail(signUpDto.getEmail());
-		lead.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
+        return ResponseEntity.ok(new JWTAuthResponse(token));
+    }
 
-		Role roles = roleRepository.findByName(signUpDto.getRolename()).get();
-		lead.setRoles(Collections.singleton(roles));
-		leadRepository.save(lead);
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto){
 
-		return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
-	}
+        // add check for username exists in a DB
+        if(userRepository.existsByUsername(signUpDto.getUsername())){
+            return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
+        }
+
+        // add check for email exists in DB
+        if(userRepository.existsByEmail(signUpDto.getEmail())){
+            return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
+        }
+
+        // create user object
+        Lead lead = new Lead();
+        lead.setName(signUpDto.getName());
+        lead.setUsername(signUpDto.getUsername());
+        lead.setEmail(signUpDto.getEmail());
+        lead.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
+
+        Role roles = roleRepository.findByName(signUpDto.getRolename()).get();
+        lead.setRoles(Collections.singleton(roles));
+
+        userRepository.save(lead);
+
+        return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+
+    }
 }
