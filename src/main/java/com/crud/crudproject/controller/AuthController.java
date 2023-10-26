@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crud.crudproject.dto.JWTAuthResponse;
-import com.crud.crudproject.dto.LeadDto;
 import com.crud.crudproject.dto.LoginDto;
 import com.crud.crudproject.dto.SignUpDto;
 import com.crud.crudproject.model.Lead;
