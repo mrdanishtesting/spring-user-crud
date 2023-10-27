@@ -1,12 +1,13 @@
 package com.crud.crudproject.controller;
 
-import static com.crud.crudproject.util.MessageProperty.ERROR_USER_CREATE_FIELD_MISSING;
-import static com.crud.crudproject.util.MessageProperty.INFO_LEAD_DELETED_SUCCESS;
-
+import static com.crud.crudproject.util.MessagePropertyConstants.ERROR_USER_CREATE_FIELD_MISSING;
+import static com.crud.crudproject.util.MessagePropertyConstants.INFO_LEAD_DELETED_SUCCESS;
+import static com.crud.crudproject.util.MessagePropertyConstants.ERROR_USER_NOT_FOUND;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.crud.crudproject.dto.JsonViews;
 import com.crud.crudproject.dto.LeadDto;
 import com.crud.crudproject.dto.RestResponse;
+import com.crud.crudproject.model.Lead;
 import com.crud.crudproject.repository.LeadRepository;
 import com.crud.crudproject.service.LeadService;
+import com.crud.crudproject.service.LeadServiceImpl;
 import com.crud.crudproject.util.Helper;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -44,13 +47,18 @@ public class LeadRestController {
 	@Autowired
 	Helper helper;
 
+	
 	// http://localhost:8181/api/leads
 	@GetMapping
 	@ApiOperation(value = "showing all the list of leads")
 	public ResponseEntity<RestResponse> listAllLead(
+			 
 			@RequestParam(value="pageNum",defaultValue = "0",required = false) int pageNum,
 			@RequestParam(value="pageSize",defaultValue = "0",required = false) int pageSize
 			){
+		
+		
+		
 		return leadService.listLeads(pageNum,pageSize);
 
 	}                                       
@@ -73,7 +81,7 @@ public class LeadRestController {
 	@ApiOperation(value = "giving service to  find the lead onbehalf of lead-id ")
 	@GetMapping("/find/lead/{id}")
 	public ResponseEntity<RestResponse> findOneLead(@PathVariable("id") long id) {
-		return leadService.getLeadById(id);
+			return leadService.getLeadById(id);
 
 	}
 
@@ -85,6 +93,7 @@ public class LeadRestController {
 	}
 
 	// http://localhost:8181/api/leads/delete/id
+	@ApiOperation(value = "deleting the lead ")
 	@DeleteMapping("delete/{id}")
 	public ResponseEntity<RestResponse> deleteOneLead(@PathVariable(name="id") long id) {
 		RestResponse response=new RestResponse();

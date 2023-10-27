@@ -1,9 +1,10 @@
-package com.crud.crudproject.controller;
+package com.crud.crudproject.admincontroller;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,13 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.crud.crudproject.model.Lead;
 import com.crud.crudproject.service.LeadService;
 
 import io.swagger.annotations.Api;
 
-@Controller
+@RestController("/api/leads")
 public class LeadController {
 
 	@Autowired
@@ -28,12 +30,13 @@ public class LeadController {
 
 	// http://localhost:4321/login
 	@GetMapping("/login")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String showView(Model model) {
 //		model.addAttribute("appName", appName);
 		return "login";
 
 	}
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/save/leads")
 	public String saveLead(@Valid @ModelAttribute("lead") Lead lead, BindingResult result) {
 
@@ -56,6 +59,7 @@ public class LeadController {
 //	}
 
 	// http://localhost:8181/new/leads
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/new/leads")
 	public String createLeadForm(Model model) {
 		model.addAttribute("lead", new Lead());
@@ -63,6 +67,7 @@ public class LeadController {
 	}
 
 	// http://localhost:8181/leads/edit/{id}
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/leads/edit/{id}")
 	public String editLeadForm(@PathVariable Long id, Model model) {
 		model.addAttribute("lead", leadService.getLeadById(id));
@@ -83,6 +88,7 @@ public class LeadController {
 	 */
 
 	// http://localhost:8181/show/delete/{id}
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/show/delete/{id}")
 	public String deletePage(@PathVariable Long id, Model model) {
 		model.addAttribute("lead", leadService.getLeadById(id));
@@ -90,6 +96,7 @@ public class LeadController {
 	}
 
 	@GetMapping("/delete/leads/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteLead(@PathVariable Long id) {
 		leadService.deleteById(id);
 		return "redirect:/listleads";

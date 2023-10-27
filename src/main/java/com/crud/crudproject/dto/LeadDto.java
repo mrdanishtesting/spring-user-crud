@@ -1,25 +1,33 @@
 package com.crud.crudproject.dto;
 
+import com.crud.crudproject.util.UserRole;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+@JsonPropertyOrder({ "id","name","username", "email", "password", "confirmPassword" })
 public class LeadDto {
 
-	
 	private long id;
-	@JsonView(value = { JsonViews.Lead.class ,JsonViews.Lead.Update.class})
+	@JsonView(value = { JsonViews.Lead.class, JsonViews.Lead.Update.class,JsonViews.Lead.SignUp.class })
+	@Schema(name = "name", example = "rahul", required = false)
 	private String name;
-	@JsonView(value = { JsonViews.Lead.class,JsonViews.Lead.Update.class })
+	@JsonView(value = {   JsonViews.Lead.class, JsonViews.Lead.Update.class ,JsonViews.Lead.SignUp.class})
+	@Schema(name = "username", example = "username", required = false)
 	private String username;
-	@JsonView(value = { JsonViews.Lead.class ,JsonViews.Lead.Update.class})
+	@JsonView(value = { JsonViews.Lead.class,JsonViews.Lead.Update.class ,JsonViews.Lead.SignUp.class})
+	@Schema(name = "email", example = "rahul@gmail.com", required = false)
 	private String email;
-	@JsonView(value = { JsonViews.Lead.class,JsonViews.Lead.Update.class })
+	@JsonView(value = { JsonViews.Lead.class, JsonViews.Lead.Update.class ,JsonViews.Lead.SignUp.class})
+	@Schema(name = "password", example = "password", required = false)
 	private String password;
-	@JsonView(value = { JsonViews.Lead.class,JsonViews.Lead.Update.class })
+	@JsonView(value = { JsonViews.Lead.class, JsonViews.Lead.Update.class ,JsonViews.Lead.SignUp.class})
+	@Schema(name = "confirmPassword", example = "confirmPassword", required = false)
 	private String confirmPassword;
-	@JsonView(value = { JsonViews.Lead.class})
 	private String country;
-	@JsonView(value = { JsonViews.Lead.class})
-	private String roles;
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	private String roles=UserRole.ROLE_USER;
 
 	public String getEmail() {
 		return email;
@@ -53,8 +61,6 @@ public class LeadDto {
 		this.country = country;
 	}
 
-	
-
 	public String getUsername() {
 		return username;
 	}
@@ -87,10 +93,10 @@ public class LeadDto {
 		this.roles = roles;
 	}
 
-
-	
-
-
-
+	@Override
+	public String toString() {
+		return "LeadDto [id=" + id + ", name=" + name + ", username=" + username + ", email=" + email + ", password="
+				+ password + ", confirmPassword=" + confirmPassword + ", country=" + country + ", roles=" + roles + "]";
+	}
 
 }

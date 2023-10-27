@@ -15,13 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crud.crudproject.dto.JWTAuthResponse;
+import com.crud.crudproject.dto.JsonViews;
+import com.crud.crudproject.dto.LeadDto;
 import com.crud.crudproject.dto.LoginDto;
-import com.crud.crudproject.dto.SignUpDto;
 import com.crud.crudproject.model.Lead;
 import com.crud.crudproject.model.Role;
 import com.crud.crudproject.repository.LeadRepository;
 import com.crud.crudproject.repository.RoleRepository;
 import com.crud.crudproject.security.JwtTokenProvider;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -56,26 +58,26 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody SignUpDto signUpDto){
+    public ResponseEntity<?> registerUser(@RequestBody @JsonView(JsonViews.Lead.SignUp.class)LeadDto leadDto){
 
         // add check for username exists in a DB
-        if(userRepository.existsByUsername(signUpDto.getUsername())){
+        if(userRepository.existsByUsername(leadDto.getUsername())){
             return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
         }
 
         // add check for email exists in DB
-        if(userRepository.existsByEmail(signUpDto.getEmail())){
+        if(userRepository.existsByEmail(leadDto.getEmail())){
             return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
         }
 
         // create user object
         Lead lead = new Lead();
-        lead.setName(signUpDto.getName());
-        lead.setUsername(signUpDto.getUsername());
-        lead.setEmail(signUpDto.getEmail());
-        lead.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
+        lead.setName(leadDto.getName());
+        lead.setUsername(leadDto.getUsername());
+        lead.setEmail(leadDto.getEmail());
+        lead.setPassword(passwordEncoder.encode(leadDto.getPassword()));
 
-        Role roles = roleRepository.findByName(signUpDto.getRolename()).get();
+        Role roles = roleRepository.findByName(leadDto.getRoles()).get();
         lead.setRoles(Collections.singleton(roles));
 
         userRepository.save(lead);

@@ -28,13 +28,17 @@ public class Lead {
 	private long id;
 	@NotBlank(message = "email cannot be empty!!")
 
-	
+	@JsonView(JsonViews.Lead.Views.class)
 	private String name;
+	@JsonView(JsonViews.Lead.Views.class)
 	private String username;
 	@Column(name = "email", unique = true, length = 125)
+	@JsonView(JsonViews.Lead.Views.class)
+
 	private String email;
 	@NotBlank(message = "password cannot be empty!!")
 	@Size(min = 3, message = "min length of character is 6")
+	
 	private String password;
 
 	private String confirmPassword;
