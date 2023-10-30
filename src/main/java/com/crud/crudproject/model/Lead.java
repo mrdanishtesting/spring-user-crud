@@ -48,7 +48,7 @@ public class Lead {
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "lead_roles", joinColumns = @JoinColumn(name = "lead_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-	@JsonView(JsonViews.Lead.Views.class)
+	//@JsonView(JsonViews.Lead.Views.class)
 	private Set<Role> roles;
 
 	public Set<Role> getRoles() {

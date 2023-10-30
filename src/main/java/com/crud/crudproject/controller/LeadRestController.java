@@ -54,10 +54,8 @@ public class LeadRestController {
 	public ResponseEntity<RestResponse> listAllLead(
 			 
 			@RequestParam(value="pageNum",defaultValue = "0",required = false) int pageNum,
-			@RequestParam(value="pageSize",defaultValue = "0",required = false) int pageSize
+			@RequestParam(value="pageSize",defaultValue = "10",required = false) int pageSize
 			){
-		
-		
 		
 		return leadService.listLeads(pageNum,pageSize);
 
@@ -80,7 +78,7 @@ public class LeadRestController {
 
 	@ApiOperation(value = "giving service to  find the lead onbehalf of lead-id ")
 	@GetMapping("/find/lead/{id}")
-	public ResponseEntity<RestResponse> findOneLead(@PathVariable("id") long id) {
+	public ResponseEntity<RestResponse> findOneLead(@PathVariable("id")long id) {
 			return leadService.getLeadById(id);
 
 	}

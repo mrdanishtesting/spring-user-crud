@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.crud.crudproject.dao.Dao;
@@ -38,6 +39,8 @@ public class LeadServiceImpl implements LeadService {
 	@Autowired
 	Dao dao;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 	@Autowired
 	ModelMapper modelMapper;
 
@@ -50,12 +53,19 @@ public class LeadServiceImpl implements LeadService {
 	@Override
 	public ResponseEntity<RestResponse> listLeads(int pageNum, int pageSize) {
 
+		RestResponse response = new RestResponse();
 		List<Lead> listAllLeads = dao.listAllLeads(pageNum, pageSize);
 		List<LeadDto> leadDtoList = modelMapper.map(listAllLeads, List.class);
+		if (leadDtoList.isEmpty()) {
+			response.setMessage("users not found");
+			response.setStatus(false);
+			response.setData(helper.message(ERROR_USER_NOT_FOUND));
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+			
+		}
 		// List<LeadDto> leadDto = modelMapper.map(listAllLeads, new
 		// TypeToken<List<LeadDto>>() {}.getType());
 
-		RestResponse response = new RestResponse();
 //		JSONArray jsonArray;
 		JsonNode node = convertToJsonNode(leadDtoList);
 
@@ -86,9 +96,15 @@ public class LeadServiceImpl implements LeadService {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 		}
 
-		Lead lead = modelMapper.map(leadDto, Lead.class);
+		//Lead lead = modelMapper.map(leadDto, Lead.class);
+		Lead lead=new Lead();
+		lead.setName(leadDto.getName());
+		lead.setUsername(leadDto.getUsername());
+		lead.setEmail(leadDto.getEmail());
+		 lead.setPassword(passwordEncoder.encode(leadDto.getPassword()));
 		Role roles = roleRepository.findByName(leadDto.getRoles()).get();
 		lead.setRoles(Collections.singleton(roles));
+		
 		Lead leadEntity = dao.createUser(lead);
 		LeadDto dto = modelMapper.map(leadEntity, LeadDto.class);
 		System.out.println(dto.toString());
@@ -106,7 +122,9 @@ public class LeadServiceImpl implements LeadService {
 		Lead viewOneLead = dao.viewOneLead(id);
 		if (viewOneLead != null) {
 			LeadDto dto = modelMapper.map(viewOneLead, LeadDto.class);
-			response.setData(dto);
+			JsonNode convertSingleNode = helper.convertSingleNode(dto);
+			
+			response.setData(convertSingleNode);
 			response.setStatus(true);
 			response.setMessage(helper.message(INFO_GLOBAL_SUCCESS_MESSAGE));
 			return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -120,12 +138,12 @@ public class LeadServiceImpl implements LeadService {
 	public ResponseEntity<RestResponse> updateLead(LeadDto leadDto, long id) {
 		RestResponse response = new RestResponse();
 		Lead lead = dao.viewOneLead(id);
-
+      
 		// Lead newLead = modelMapper.map(leadDto, Lead.class);
 		lead.setName(leadDto.getName());
 		lead.setUsername(leadDto.getUsername());
 		lead.setEmail(leadDto.getEmail());
-		lead.setPassword(lead.getPassword());
+		 lead.setPassword(passwordEncoder.encode(leadDto.getPassword()));
 		lead.setConfirmPassword(leadDto.getConfirmPassword());
 		// lead.setRoles(leadDto.getRoles());
 		Lead updateLead = dao.updateLead(lead);
@@ -152,7 +170,7 @@ public class LeadServiceImpl implements LeadService {
 			System.out.println(result);
 			node = objectMapper.readValue(result, JsonNode.class);
 
-//			jsonArray = new JSONArray(objectMapper.writeValueAsString(activeDtoList));
+			//jsonArray = new JSONArray(objectMapper.writeValueAsString(node));
 		} catch (JsonProcessingException e) {
 			// Handle the exception appropriately
 
@@ -160,4 +178,6 @@ public class LeadServiceImpl implements LeadService {
 		return node;
 	}
 
+	
+	
 }

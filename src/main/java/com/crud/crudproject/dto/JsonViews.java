@@ -12,7 +12,11 @@ public interface JsonViews {
 
 		}
 
+	
 		public static interface SignUp {
+
+		}
+		public static interface ShowOneLead {
 
 		}
 	}

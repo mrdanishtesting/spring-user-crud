@@ -6,28 +6,34 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-@JsonPropertyOrder({ "id","name","username", "email", "password", "confirmPassword" })
+
+@JsonPropertyOrder({"id", "name", "username", "email", "password", "confirmPassword" })
 public class LeadDto {
 
 	private long id;
-	@JsonView(value = { JsonViews.Lead.class, JsonViews.Lead.Update.class,JsonViews.Lead.SignUp.class })
+	@JsonView(value = { JsonViews.Lead.class, JsonViews.Lead.Views.class, JsonViews.Lead.Update.class,
+			JsonViews.Lead.SignUp.class })
 	@Schema(name = "name", example = "rahul", required = false)
 	private String name;
-	@JsonView(value = {   JsonViews.Lead.class, JsonViews.Lead.Update.class ,JsonViews.Lead.SignUp.class})
+	@JsonView(value = { JsonViews.Lead.class, JsonViews.Lead.Views.class, JsonViews.Lead.Update.class,
+			JsonViews.Lead.SignUp.class })
 	@Schema(name = "username", example = "username", required = false)
 	private String username;
-	@JsonView(value = { JsonViews.Lead.class,JsonViews.Lead.Update.class ,JsonViews.Lead.SignUp.class})
+	@JsonView(value = { JsonViews.Lead.class, JsonViews.Lead.Views.class, JsonViews.Lead.Update.class,
+			JsonViews.Lead.SignUp.class })
 	@Schema(name = "email", example = "rahul@gmail.com", required = false)
 	private String email;
-	@JsonView(value = { JsonViews.Lead.class, JsonViews.Lead.Update.class ,JsonViews.Lead.SignUp.class})
+	@JsonView(value = { JsonViews.Lead.class, JsonViews.Lead.Update.class, JsonViews.Lead.SignUp.class })
 	@Schema(name = "password", example = "password", required = false)
 	private String password;
-	@JsonView(value = { JsonViews.Lead.class, JsonViews.Lead.Update.class ,JsonViews.Lead.SignUp.class})
+	@JsonView(value = { JsonViews.Lead.class, JsonViews.Lead.Update.class, JsonViews.Lead.SignUp.class })
 	@Schema(name = "confirmPassword", example = "confirmPassword", required = false)
 	private String confirmPassword;
+	@JsonView(value = { JsonViews.Lead.Views.class })
 	private String country;
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	private String roles=UserRole.ROLE_USER;
+	//@JsonView(value = { JsonViews.Lead.Views.class })
+	private String roles = UserRole.ROLE_USER;
 
 	public String getEmail() {
 		return email;
